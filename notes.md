@@ -1,4 +1,3 @@
-notes.txt
 ## How to Connect Flutter App to Your Local Backend (Switching from Dummy Data)
 
 This guide will help you switch the Flutter app from using built-in dummy data to using your actual local backend.
@@ -56,28 +55,22 @@ This guide will help you switch the Flutter app from using built-in dummy data t
 4.  Save the `dio_provider.dart` file.
 
 ---
-**Step 4: Turn Off Dummy Data in Flutter Repositories**
+**Step 4: Turn Off Dummy Data in the Flutter App (Central Toggle)**
 ---
 
-You need to change a setting in three Flutter files:
-
-1.  **Auth Repository:**
-    * Open: `lib/src/features/auth/data/repositories/auth_repository.dart`
-    * Find: `const bool _useDummyDataAuthRepo = true;`
-    * Change to: `const bool _useDummyDataAuthRepo = false;`
-    * Save.
-
-2.  **Appointment Repository:**
-    * Open: `lib/src/features/appointments/data/repositories/appointment_repository.dart`
-    * Find: `const bool _useDummyDataAppointmentRepo = true;`
-    * Change to: `const bool _useDummyDataAppointmentRepo = false;`
-    * Save.
-
-3.  **Doctor Repository:**
-    * Open: `lib/src/features/doctors/data/repositories/doctor_repository.dart`
-    * Find: `const bool _useDummyDataDoctorRepo = true;`
-    * Change to: `const bool _useDummyDataDoctorRepo = false;`
-    * Save.
+1.  In your Flutter project, open the central configuration file:
+    `lib/src/core/config/app_config.dart`
+2.  Find the line:
+    ```dart
+    const bool shouldUseMockData = true; 
+    ```
+3.  To connect to your **REAL local backend**, change `true` to `false`:
+    ```dart
+    const bool shouldUseMockData = false; 
+    ```
+4.  To switch back to **dummy data** for testing without the backend, change it back to `true`.
+5.  Save the `app_config.dart` file.
+    (This single change now controls all repositories: Auth, Appointments, and Doctors).
 
 ---
 **Step 5: Restart and Test Your Flutter App**
@@ -98,10 +91,11 @@ You need to change a setting in three Flutter files:
 
 If you no longer need the dummy data setup:
 
-1.  In each of the three repository files from Step 4:
-    * Delete the `_useDummyData...Repo` boolean flag line.
-    * Delete the `if (_useDummyData...Repo) { ... }` block from each method, leaving only the real API call logic.
-2.  Delete the dummy data file: `lib/src/core/dev/dummy_data.dart`.
-3.  Delete any in-memory lists (like `_inMemoryDummyAppointments`) or variables (like `_dummyRAMUser`) used only by the dummy logic within the repository implementation classes.
+1.  In `lib/src/core/config/app_config.dart`, you can delete the `shouldUseMockData` line or set it permanently to `false`.
+2.  In each of the repository implementation files (`auth_repository.dart`, `appointment_repository.dart`, `doctor_repository.dart`):
+    * Delete the import for `app_config.dart`.
+    * Delete the `if (shouldUseMockData) { ... }` block from each method, leaving only the real API call logic.
+3.  Delete the dummy data file: `lib/src/core/dev/dummy_data.dart`.
+4.  Delete any instance variables used only for dummy data within the repository classes (e.g., `_dummyRAMUser`, `_instanceInMemoryDummyAppointments`, `_instanceSessionDummyDoctors`).
 
 Good luck with the demo!
