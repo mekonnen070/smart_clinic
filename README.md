@@ -1,4 +1,3 @@
-notes.txt
 ## How to Connect Flutter App to Your Local Backend (Switching from Dummy Data)
 
 This guide will help you switch the Flutter app from using built-in dummy data to using your actual local backend.
@@ -104,4 +103,4 @@ If you no longer need the dummy data setup:
 2.  Delete the dummy data file: `lib/src/core/dev/dummy_data.dart`.
 3.  Delete any in-memory lists (like `_inMemoryDummyAppointments`) or variables (like `_dummyRAMUser`) used only by the dummy logic within the repository implementation classes.
 
-Good luck with the demo!
+## Good luck with the demo!
