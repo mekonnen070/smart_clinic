@@ -98,4 +98,4 @@ If you no longer need the dummy data setup:
 3.  Delete the dummy data file: `lib/src/core/dev/dummy_data.dart`.
 4.  Delete any instance variables used only for dummy data within the repository classes (e.g., `_dummyRAMUser`, `_instanceInMemoryDummyAppointments`, `_instanceSessionDummyDoctors`).
 
-Good luck with the demo!
+# Good luck with the demo!
